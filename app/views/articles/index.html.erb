@@ -1,0 +1,45 @@
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>
+</head>
+<h1>HOLY SHITBALLS IT'S A BLOG!</h1>
+<%= image_tag("/ack_blog.png", :alt => "It's a blog") %>
+<p></p>
+<h2>Articles</h2>
+<p><% @articles.each do |article| %>
+  <h3><%= link_to article.title, article_path(article) %></a></h3>
+  <p><%= article.body %></p>
+  <% end %>
+</p>
+<% if logged_in? %>
+  <p class="new_article"><%= link_to "Create a new article", new_article_path %></p>
+<% end %>
+
+
+<style type="text/css">
+img {
+  float: right;
+  margin: 1em 1em 1em 1em;
+}
+h1 {
+  font-family: 'Patrick Hand SC', cursive;
+  color :#31D45C;
+  font-size: 50px;
+  letter-spacing: 0.07em;
+  text-shadow: 2px 2px 7px #9246C2;
+}
+h2 {
+  font-family: 'Patrick Hand SC', cursive;
+  font-size: 36px;
+}
+h3 {
+  font-family: arial;
+}
+p {
+  font-family: arial;
+}
+p.new_article{
+  font-family: arial;
+}
+</style>
+</html>

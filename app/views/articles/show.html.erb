@@ -1,0 +1,53 @@
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<h1>HOLY SHITBALLS IT'S A BLOG!</h1>
+<%= image_tag("/ack_blog.png", :alt => "It's a blog") %>
+<h3><%= @article.title %></h3>
+<p>
+  <% if @article.image.exists? %>
+    <%= image_tag @article.image.url %><br/>
+  <% end %>
+</p>
+<p><%= @article.body %></p>
+<p>
+  Tags:
+  <% @article.tags.each do |tag| %>
+    <%= link_to tag.name, tag_path(tag) %>
+  <% end %>
+</p>
+<% if logged_in? %>
+  <p><%= link_to "Edit article", edit_article_path(@article) %></p>
+  <p><%= link_to "Delete article", article_path(@article), method: :delete, confirm: "Are you sure you want to delete the article?" %></p>
+<% end %>
+<h3>Comments (<%=@article.comments.size %>)</h3>
+<%= render partial: 'articles/comment', collection: @article.comments %>
+<%= render partial: 'comments/form' %>
+<p><%= link_to "<< Back to Articles list", articles_path %></p>
+</body>
+
+
+<style type="text/css">
+img {
+  float: right;
+  margin: 1em 1em 1em 1em;
+}
+h1 {
+  font-family: 'Patrick Hand SC', cursive;
+  color :#31D45C;
+  font-size: 50px;
+  letter-spacing: 0.07em;
+  text-shadow: 2px 2px 7px #9246C2;
+}
+h3{
+  font-family: 'Patrick Hand SC', cursive;
+  font-size: 30px;
+}
+p{
+  font-family: arial;
+  font-size: 16px;
+}
+</style>
+</html>

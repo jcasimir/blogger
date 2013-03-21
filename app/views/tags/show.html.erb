@@ -1,0 +1,23 @@
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Patrick+Hand+SC' rel='stylesheet' type='text/css'>
+</head>
+<body>
+  <h1>Articles tagged with <%= @tag.name.titleize %></h1>
+
+  <ul>
+    <% @tag.articles.each do |article| %>
+      <li><%= link_to article.title, article_path(article) %></li>
+    <% end %>
+  </ul>
+</body>
+
+<style type="text/css">
+h1 {
+  font-family: 'Patrick Hand SC', cursive;
+  color :black;
+}
+ul {
+  font-size: 20px;
+  font-family: arial;
+}
+</style>
