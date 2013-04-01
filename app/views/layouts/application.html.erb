@@ -15,16 +15,6 @@
   <div id="container">
     <div id="content">
       <%= yield %>
-      <hr>
-      <h6>
-        <% if logged_in? %>
-          <%= "Logged in as #{current_user.username}" %>
-          <%= link_to "(logout)", logout_path %>
-        <% else %>
-          <%= link_to "(login)", login_path %>
-          <%= link_to "create new account", new_author_path %>
-        <% end %>
-      </h6>
     </div>
   </div>
 </body>
