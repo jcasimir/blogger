@@ -8,9 +8,11 @@
 </head>
 <body>
 
-  <p class="flash">
-    <%= flash.notice %>
-  </p>
+  <% if flash.notice %>
+    <p class="flash">
+      <%= flash.notice %>
+    </p>
+  <% end %>
 
   <div id="container">
     <div id="content">
