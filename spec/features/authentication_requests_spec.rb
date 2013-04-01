@@ -12,19 +12,14 @@ describe "Authentication Requests" do
       expect(page).to have_field("password")
     end
 
-    it "has a #sign_in button" do
-      visit "/login"
-      expect(page).to have_link("sign_in")
-    end
-
     context "when there is a registered user" do
       it "logs the user in" do
         User.create(:username => "Jeff", :password => "Password")
+        expect(User.first).to be
         visit '/login'
         fill_in 'username', :with => "Jeff"
         fill_in 'password', :with => "Password"
-        click_link 'sign_in'
-        save_and_open_page
+        click_link_or_button 'sign_in'
         expect(current_path).to eq "/"
         expect(page).to have_content("Welcome, Jeff!")
       end
@@ -35,7 +30,7 @@ describe "Authentication Requests" do
           visit '/login'
           fill_in 'username', :with => "Jeff"
           fill_in 'password', :with => "not_password"
-          click_link 'sign_in'
+          click_link_or_button 'sign_in'
           expect(current_path).to eq "/login"
           within('p.flash') do
             expect(page).to have_content "failed"
@@ -49,7 +44,7 @@ describe "Authentication Requests" do
         visit '/login'
         fill_in 'username', :with => "Jeff"
         fill_in 'password', :with => "Password"
-        click_link 'sign_in'
+        click_link_or_button 'sign_in'
         expect(current_path).to eq "/login"
         within('p.flash') do
           expect(page).to have_content "failed"

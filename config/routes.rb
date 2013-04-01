@@ -1,6 +1,6 @@
 Blogger::Application.routes.draw do
 
-  match "/login", :to => "logins#new"
+  get "/login", :to => "logins#new"
 
   resource :login, :except => [:new]
 
