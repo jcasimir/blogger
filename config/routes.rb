@@ -1,6 +1,7 @@
 Blogger::Application.routes.draw do
 
   get "/login", :to => "logins#new"
+  get "/logout", :to => "logins#destroy"
 
   resource :login, :except => [:new]
 

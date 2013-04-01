@@ -1,6 +1,27 @@
 require 'spec_helper'
 
 describe "Authentication Requests" do
+  let!(:jeff){ User.create(:username => "jcasimir", 
+                          :password => "password", 
+                          :first_name => "Jeff")}
+
+  describe "/logout" do
+    context "when a user is currently logged in" do
+      it "logs them out and returns to the index" do
+        visit '/login'
+        fill_in 'username', :with => jeff.username
+        fill_in 'password', :with => jeff.password
+        click_link_or_button 'sign_in'
+        visit '/logout'
+        expect(current_path).to eq "/"
+        within("p.flash") do
+          expect(page).to have_content "logged out"
+        end
+        expect(page).to have_link('sign_in')
+      end
+    end
+  end
+
   describe "/login" do
     it "has a #username field" do
       visit "/login"
@@ -13,23 +34,33 @@ describe "Authentication Requests" do
     end
 
     context "when there is a registered user" do
+      let(:john){ User.create(:username => "jmaddux", 
+                              :password => "john_pw", 
+                              :first_name => "John")}
+
       it "logs the user in" do
-        User.create(:username => "Jeff", :password => "Password")
-        expect(User.first).to be
         visit '/login'
-        fill_in 'username', :with => "Jeff"
-        fill_in 'password', :with => "Password"
+        fill_in 'username', :with => jeff.username
+        fill_in 'password', :with => jeff.password
         click_link_or_button 'sign_in'
         expect(current_path).to eq "/"
-        expect(page).to have_content("Welcome, Jeff!")
+        expect(page).to have_content("Welcome, #{jeff}")
+      end
+
+      it "logs in the correct user" do
+        visit '/login'
+        fill_in 'username', :with => john.username
+        fill_in 'password', :with => john.password
+        click_link_or_button 'sign_in'
+        expect(current_path).to eq "/"
+        expect(page).to have_content("Welcome, #{john}")
       end
 
       context "when the password is wrong" do
         it "fails to login" do
-          User.create(:username => "Jeff", :password => "Password")
           visit '/login'
-          fill_in 'username', :with => "Jeff"
-          fill_in 'password', :with => "not_password"
+          fill_in 'username', :with => jeff.username
+          fill_in 'password', :with => jeff.password + "crap"
           click_link_or_button 'sign_in'
           expect(current_path).to eq "/login"
           within('p.flash') do
