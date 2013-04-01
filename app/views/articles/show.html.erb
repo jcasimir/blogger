@@ -14,10 +14,8 @@
     <%= link_to tag.name, tag_path(tag) %>
   <% end %>
 </p>
-<% if logged_in? %>
   <p><%= link_to "Edit article", edit_article_path(@article) %></p>
   <p><%= link_to "Delete article", article_path(@article), method: :delete, confirm: "Are you sure you want to delete the article?" %></p>
-<% end %>
 <h3>Comments (<%=@article.comments.size %>)</h3>
 <%= render partial: 'articles/comment', collection: @article.comments %>
 <%= render partial: 'comments/form' %>

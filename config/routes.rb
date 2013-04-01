@@ -1,5 +1,9 @@
 Blogger::Application.routes.draw do
 
+  match "/login", :to => "logins#new"
+
+  resource :login, :except => [:new]
+
   get "tags/index"
 
   get "tags/show"
