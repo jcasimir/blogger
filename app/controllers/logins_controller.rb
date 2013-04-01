@@ -5,10 +5,11 @@ class LoginsController < ApplicationController
 
   def create
     user = User.find_by_username(params[:username])
-    if user && user.password == params[:password]
+    if user && user.password_matches?(params[:password])
       session[:user_id] = user.id
       redirect_to '/'
     else
+      flash.notice = "login failed, please try again"
       redirect_to login_path
     end
   end

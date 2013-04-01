@@ -1,8 +1,9 @@
 <h1>ZOMG IT'S A BLOG!</h1>
 <% if current_user %>
   <h3>Welcome, <%= current_user %></h3>
+  <%= link_to 'sign out', logout_path, id: "sign_out" %>
 <% else %>
-  <a href="#" id="sign_in">Sign In</a>
+  <%= link_to 'sign in', login_path, id: "sign_in" %>
 <% end %>
   <p><% @articles.each do |article| %>
     <h3><%= link_to article.title, article_path(article) %></a></h3>

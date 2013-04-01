@@ -23,7 +23,7 @@ describe "Authorization Requests" do
       it "shows the Create Article link" do
         visit '/login'
         fill_in 'username', :with => jeff.username
-        fill_in 'password', :with => jeff.password
+        fill_in 'password', :with => 'password'
         click_link_or_button 'sign_in'
         visit '/'
         expect(page).to have_link('new_article')

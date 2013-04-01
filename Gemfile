@@ -18,3 +18,4 @@ end
 
 gem 'jquery-rails'
 gem "paperclip"
+gem 'bcrypt-ruby', :require => 'bcrypt'
